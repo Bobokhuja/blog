@@ -15,6 +15,7 @@ import { closePost } from '@components/Posts/postSlice.ts'
 import useSWR from 'swr'
 import { IUser } from '@models/IUser.ts'
 import { getFetcher } from '@api/getFetcher.ts'
+import { useEffect } from 'react'
 
 function PostModal() {
   const {post} = useAppSelector(state => state.post)
@@ -22,8 +23,17 @@ function PostModal() {
   const {
     data: users,
     isLoading,
-  } = useSWR<IUser[]>(`/users?id=${post?.userId}`, getFetcher)
+    mutate,
+  } = useSWR<IUser[]>(`/users?id=${post?.userId}`, getFetcher, {
+    isPaused: () => {
+      return !post?.userId
+    }
+  })
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    mutate()
+  }, [post])
 
   const onClose = () => {
     dispatch(closePost())
