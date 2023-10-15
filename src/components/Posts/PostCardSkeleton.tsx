@@ -7,7 +7,7 @@ function PostCardSkeleton() {
         <SkeletonText noOfLines={2} skeletonHeight={4}/>
       </CardHeader>
       <CardBody>
-        <SkeletonText noOfLines={4} skeletonHeight={3}/>
+        <SkeletonText noOfLines={3} skeletonHeight={3}/>
       </CardBody>
       <CardFooter>
         <Skeleton

@@ -13,7 +13,7 @@ function PostCard(props: IPost) {
         <Heading size="md" noOfLines={2}>{title}</Heading>
       </CardHeader>
       <CardBody>
-        <Text noOfLines={4}>{body}</Text>
+        <Text noOfLines={3}>{body}</Text>
       </CardBody>
       <CardFooter>
         <Button
