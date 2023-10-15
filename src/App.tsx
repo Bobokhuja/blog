@@ -8,7 +8,7 @@ function App() {
     <Providers>
       <Box bg="gray.100" minHeight="100vh">
         <Header/>
-        <Container py={5} maxW="4xl">
+        <Container py={10} maxW="4xl">
           <Posts/>
         </Container>
       </Box>
