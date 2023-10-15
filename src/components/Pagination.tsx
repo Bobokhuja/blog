@@ -22,6 +22,7 @@ function Pagination({paginationModel, setPaginationModel}: Props) {
       templateColumns="repeat(auto-fill, minmax(400px, 1fr))"
       marginTop={12}
       spacing={5}
+      overflow="auto"
     >
       <Box maxW="xl">
         <ReactPaginate
@@ -29,7 +30,7 @@ function Pagination({paginationModel, setPaginationModel}: Props) {
           breakLabel="..."
           nextLabel={<ChevronRightIcon w={5} h={5}/>}
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={2}
           pageCount={Math.floor(100 / paginationModel.perPage)}
           previousLabel={<ChevronLeftIcon w={5} h={5}/>}
           renderOnZeroPageCount={null}

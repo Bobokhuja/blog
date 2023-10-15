@@ -30,7 +30,7 @@ function Posts() {
   return (
     <Box>
       <PostModal/>
-      <SimpleGrid spacing={4} templateColumns="repeat(auto-fill, minmax(400px, 1fr))">
+      <SimpleGrid spacing={4} templateColumns="repeat(auto-fill, minmax(200px, 1fr))">
         {(isLoading || isValidating) && <PostsSkeleton perPage={paginationModel.perPage}/>}
         {!(isLoading || isValidating) && posts?.map(post => (
           <PostCard
