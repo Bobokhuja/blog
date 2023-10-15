@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from '@chakra-ui/react'
+import { Box, Heading, Input, SimpleGrid } from '@chakra-ui/react'
 import useSWR from 'swr'
 import { IPost } from '@models/IPost.ts'
 import { getFetcher } from '@api/getFetcher.ts'
@@ -14,12 +14,13 @@ function Posts() {
     page: 0,
     perPage: 10,
   })
+  const [search, setSearch] = useState('')
   const {
     data: posts,
     isLoading,
     error,
     isValidating,
-  } = useSWR<IPost[]>(`/posts?_page=${paginationModel.page + 1}&_limit=${paginationModel.perPage}`, getFetcher, {
+  } = useSWR<IPost[]>(`/posts?${search ? `title=${search}&` : ''}_page=${paginationModel.page + 1}&_limit=${paginationModel.perPage}`, getFetcher, {
     revalidateOnFocus: false,
   })
 
@@ -30,7 +31,22 @@ function Posts() {
   return (
     <Box>
       <PostModal/>
-      <SimpleGrid spacing={4} templateColumns="repeat(auto-fill, minmax(200px, 1fr))">
+      <Input
+        bg="white"
+        placeholder="Search..."
+        size="lg"
+        mb={5}
+        value={search}
+        onChange={(event) => {
+          setSearch(event.target.value)
+        }}
+      />
+      {posts && posts.length === 0 && (
+        <Heading textAlign="center" my={10}>
+          Not found
+        </Heading>
+      )}
+      <SimpleGrid spacing={4} templateColumns="repeat(auto-fill, minmax(48%, 1fr))">
         {(isLoading || isValidating) && <PostsSkeleton perPage={paginationModel.perPage}/>}
         {!(isLoading || isValidating) && posts?.map(post => (
           <PostCard
@@ -39,10 +55,10 @@ function Posts() {
           />
         ))}
       </SimpleGrid>
-      <Pagination
+      {!!posts?.length && posts?.length !== 1 && <Pagination
         paginationModel={paginationModel}
         setPaginationModel={setPaginationModel}
-      />
+      />}
     </Box>
   )
 }

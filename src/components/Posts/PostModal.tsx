@@ -21,10 +21,10 @@ function PostModal() {
   const {post} = useAppSelector(state => state.post)
 
   const {
-    data: users,
+    data: user,
     isLoading,
     mutate,
-  } = useSWR<IUser[]>(`/users?id=${post?.userId}`, getFetcher, {
+  } = useSWR<IUser>(`/users/${post?.userId}`, getFetcher, {
     isPaused: () => {
       return !post?.userId
     }
@@ -59,7 +59,7 @@ function PostModal() {
               height={6}
               noOfLines={1}
             >
-              {users && users[0]?.name}
+              {user && user.name}
             </Skeleton>
           </Box>
           <Text>{post?.body}</Text>
