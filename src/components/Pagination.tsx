@@ -1,5 +1,5 @@
 import ReactPaginate from 'react-paginate'
-import { Box, FormControl, FormLabel, Select } from '@chakra-ui/react'
+import { Box, FormControl, FormLabel, Select, SimpleGrid } from '@chakra-ui/react'
 import { IPaginationModel } from '@models/IPaginationModel.ts'
 import { Dispatch, SetStateAction } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
@@ -18,7 +18,11 @@ function Pagination({paginationModel, setPaginationModel}: Props) {
   }
 
   return (
-    <Box marginTop={12} display="flex" alignItems="flex-end" justifyContent="space-between">
+    <SimpleGrid
+      templateColumns="repeat(auto-fill, minmax(400px, 1fr))"
+      marginTop={12}
+      spacing={5}
+    >
       <Box maxW="xl">
         <ReactPaginate
           forcePage={paginationModel.page}
@@ -38,7 +42,7 @@ function Pagination({paginationModel, setPaginationModel}: Props) {
           activeLinkClassName="react-paginate__link_active"
         />
       </Box>
-      <FormControl maxW="xs" w="100%">
+      <FormControl maxW="xs" w="100%" marginLeft={{md: 'auto'}}>
         <FormLabel>Select per page</FormLabel>
         <Select
           value={paginationModel.perPage}
@@ -54,7 +58,7 @@ function Pagination({paginationModel, setPaginationModel}: Props) {
           <option value={50}>50</option>
         </Select>
       </FormControl>
-    </Box>
+    </SimpleGrid>
   )
 }
 
